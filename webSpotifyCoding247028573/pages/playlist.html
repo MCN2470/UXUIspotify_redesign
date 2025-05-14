@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify - Playlist</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Playlist-specific styles */
+      .container {
+        display: flex;
+        height: 100vh;
+        padding-top: 56px;
+      }
+
+      .sidebar {
+        background-color: #000;
+        width: 240px;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .library-header {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .library-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: bold;
+      }
+
+      .sidebar-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      .sidebar-actions .action-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: transparent;
+        transition: background-color 0.2s;
+      }
+
+      .sidebar-actions .action-icon:hover {
+        background-color: #282828;
+      }
+
+      .search-bar {
+        padding: 4px 16px;
+        display: flex;
+        align-items: center;
+      }
+
+      .search-bar input {
+        background: none;
+        border: none;
+        width: 100%;
+        color: white;
+        font-size: 14px;
+      }
+
+      .search-bar input:focus {
+        outline: none;
+      }
+
+      .search-bar i {
+        margin-right: 8px;
+        color: #b3b3b3;
+      }
+
+      .sidebar-filter {
+        padding: 4px 16px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .sidebar-filter span {
+        font-size: 13px;
+        color: #b3b3b3;
+      }
+
+      .playlist-item {
+        padding: 8px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .playlist-item:hover {
+        background-color: #282828;
+      }
+
+      .playlist-item img {
+        width: 48px;
+        height: 48px;
+        object-fit: cover;
+      }
+
+      .playlist-details {
+        flex: 1;
+      }
+
+      .playlist-details h4 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .playlist-details p {
+        font-size: 12px;
+        color: #b3b3b3;
+      }
+
+      /* Main content styles */
+      .playlist-header {
+        padding: 24px;
+        display: flex;
+        gap: 24px;
+      }
+
+      .playlist-cover {
+        width: 232px;
+        height: 232px;
+        background-color: #282828;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .playlist-cover i {
+        font-size: 64px;
+        color: #b3b3b3;
+      }
+
+      .playlist-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+
+      .playlist-info .subtitle {
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .playlist-info h1 {
+        font-size: 72px;
+        font-weight: 900;
+        margin-bottom: 16px;
+      }
+
+      .playlist-meta {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #b3b3b3;
+        font-size: 14px;
+      }
+
+      .playlist-creator {
+        font-weight: bold;
+        color: white;
+      }
+
+      .playlist-controls {
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .recent-play-title {
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .playlist-message {
+        color: #b3b3b3;
+        font-size: 14px;
+      }
+
+      .more-options {
+        font-size: 24px;
+        color: #b3b3b3;
+        cursor: pointer;
+      }
+
+      .play-button {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background-color: #1db954;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .play-button:hover {
+        transform: scale(1.06);
+      }
+
+      .track-list {
+        padding: 0 24px;
+      }
+
+      .track-list-header {
+        display: grid;
+        grid-template-columns: 16px 4fr 3fr 2fr 50px;
+        padding: 0 16px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .track-list-header span {
+        font-size: 12px;
+        text-transform: uppercase;
+        color: #b3b3b3;
+        font-weight: 500;
+      }
+
+      .track-item {
+        display: grid;
+        grid-template-columns: 16px 4fr 3fr 2fr 50px;
+        padding: 8px 16px;
+        align-items: center;
+        border-radius: 4px;
+        transition: background-color 0.2s;
+      }
+
+      .track-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .track-item .track-number {
+        font-size: 16px;
+        color: #b3b3b3;
+      }
+
+      .track-item .track-title {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .track-actions {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .track-actions button {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .track-actions button:hover {
+        color: white;
+      }
+
+      .like-btn {
+        color: #b3b3b3;
+      }
+
+      .like-btn.active {
+        color: #1db954;
+      }
+
+      .add-btn.added {
+        color: #1db954;
+      }
+
+      .track-info h4 {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .track-info p {
+        font-size: 14px;
+        color: #b3b3b3;
+      }
+
+      .track-album,
+      .track-date-added {
+        font-size: 14px;
+        color: #b3b3b3;
+      }
+
+      .track-duration {
+        font-size: 14px;
+        color: #b3b3b3;
+        text-align: right;
+      }
+
+      .empty-playlist-message {
+        padding: 40px 0;
+        text-align: center;
+        color: #b3b3b3;
+      }
+
+      /* Playlist selector popup */
+      .playlist-selector {
+        position: absolute;
+        background-color: #282828;
+        border-radius: 4px;
+        width: 240px;
+        max-height: 320px;
+        overflow-y: auto;
+        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+        display: none;
+      }
+
+      .playlist-selector.show {
+        display: block;
+      }
+
+      .playlist-selector-header {
+        padding: 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .playlist-selector-header h4 {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .playlist-selector-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .playlist-selector-item {
+        padding: 12px 16px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .playlist-selector-item:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .playlist-selector-item i {
+        color: #b3b3b3;
+        font-size: 18px;
+      }
+
+      /* Modal styles */
+      .create-playlist-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-content {
+        background-color: #282828;
+        width: 100%;
+        max-width: 520px;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .modal-header {
+        padding: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .modal-header h4 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 700;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        font-size: 20px;
+        cursor: pointer;
+      }
+
+      .close-modal:hover {
+        color: white;
+      }
+
+      .modal-body {
+        padding: 24px;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .optional {
+        color: #b3b3b3;
+        font-weight: 400;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        background-color: #3e3e3e;
+        border: none;
+        border-radius: 4px;
+        padding: 12px;
+        color: white;
+        font-size: 14px;
+      }
+
+      .form-group textarea {
+        height: 120px;
+        resize: none;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #1db954;
+      }
+
+      .char-count {
+        text-align: right;
+        font-size: 12px;
+        color: #b3b3b3;
+        margin: 4px 0 0;
+      }
+
+      .modal-footer {
+        padding: 16px 24px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .cancel-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 12px 32px;
+        border-radius: 32px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .cancel-btn:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .create-btn {
+        background-color: #1db954;
+        border: none;
+        color: black;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 12px 32px;
+        border-radius: 32px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .create-btn:hover {
+        background-color: #1ed760;
+      }
+
+      .create-btn:disabled {
+        background-color: #1db95480;
+        cursor: not-allowed;
+      }
+
+      .create-new-playlist {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 8px;
+        padding-top: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top navigation bar -->
+    <div class="topnav">
+      <div class="left-section">
+        <div class="spotify-logo">
+          <img
+            src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"
+            alt="Spotify"
+          />
+        </div>
+        <div class="home-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="What do you want to play?"
+            class="search-input"
+          />
+          <div class="search-symbols">
+            <svg
+              class="menu-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6H20M4 12H20M4 18H12"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="divider-vertical"></span>
+            <svg
+              class="basket-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 9H19L17.5 19H6.5L5 9Z"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 9V6C8 4.34315 9.34315 3 11 3H13C14.6569 3 16 4.34315 16 6V9"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="14" r="1.5" stroke="#F1F1F1" />
+            </svg>
+          </div>
+          <div class="recent-searches">
+            <div class="recent-header">
+              <h4>Recent Searches</h4>
+              <button class="clear-btn">Clear all</button>
+            </div>
+            <ul class="recent-list">
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Drake</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Billie Eilish</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Hip Hop Playlist</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Lofi Study Beats</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Taylor Swift</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="nav-links">
+          <a href="#">Premium</a>
+          <a href="#">Support</a>
+          <a href="#">Download</a>
+        </div>
+        <div class="divider-vertical"></div>
+        <a href="#" class="install-link">Install App</a>
+        <a href="#" class="signup-link">Sign up</a>
+        <button class="login-btn">Log in</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Left sidebar (Library) -->
+      <div class="sidebar">
+        <div class="library-header">
+          <div class="library-title">
+            <i class="fas fa-book"></i>
+            <span>Your Library</span>
+          </div>
+          <div class="sidebar-actions">
+            <button class="action-icon">
+              <i class="fas fa-plus"></i>
+            </button>
+            <button class="action-icon">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="search-bar">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search in Your Library" />
+        </div>
+
+        <div class="sidebar-filter">
+          <span>Playlists</span>
+          <span>Recents <i class="fas fa-sort"></i></span>
+        </div>
+
+        <div class="playlist-item">
+          <div class="playlist-album-art">
+            <i class="fas fa-music"></i>
+          </div>
+          <div class="playlist-details">
+            <h4>My Playlist #1</h4>
+            <p>Playlist • defaultplayer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main content -->
+      <div class="main-content">
+        <!-- Playlist header -->
+        <div class="playlist-header">
+          <div class="playlist-cover">
+            <i class="fas fa-music"></i>
+          </div>
+          <div class="playlist-info">
+            <div class="subtitle">Playlist</div>
+            <h1>My Playlist #1</h1>
+            <div class="playlist-meta">
+              <span class="playlist-creator">defaultplayer</span>
+              <span>•</span>
+              <span>Let's find something for your playlist</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playlist controls -->
+        <div class="playlist-controls">
+          <div class="recent-play-title">Recents Play</div>
+          <div class="playlist-message">
+            Let's find something for your playlist
+          </div>
+        </div>
+
+        <!-- Track list -->
+        <div class="track-list">
+          <div class="track-list-header">
+            <span>#</span>
+            <span>TITLE</span>
+            <span>ARTIST</span>
+            <span>ALBUM</span>
+            <span></span>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">1</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>Good Enough</h4>
+                <p>MeiaUm</p>
+              </div>
+            </div>
+            <div class="track-artist">MeiaUm</div>
+            <div class="track-album">Good Enough</div>
+            <div class="track-duration">3:24</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">2</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>TURN IT UP</h4>
+                <p>TWICE</p>
+              </div>
+            </div>
+            <div class="track-artist">TWICE</div>
+            <div class="track-album">FANCY YOU</div>
+            <div class="track-duration">3:01</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">3</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>ECHO</h4>
+                <p>STARSET</p>
+              </div>
+            </div>
+            <div class="track-artist">STARSET</div>
+            <div class="track-album">DIVISIONS</div>
+            <div class="track-duration">5:12</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">4</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>DIVING BELL</h4>
+                <p>STARSET</p>
+              </div>
+            </div>
+            <div class="track-artist">STARSET</div>
+            <div class="track-album">DIVISIONS</div>
+            <div class="track-duration">4:55</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">5</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>Speed of Sound</h4>
+                <p>Coldplay</p>
+              </div>
+            </div>
+            <div class="track-artist">Coldplay</div>
+            <div class="track-album">X&Y</div>
+            <div class="track-duration">4:48</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">6</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>Square One</h4>
+                <p>Coldplay</p>
+              </div>
+            </div>
+            <div class="track-artist">Coldplay</div>
+            <div class="track-album">X&Y</div>
+            <div class="track-duration">4:47</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">7</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>Hazy Shade of Winter (feat. Ray Toro)</h4>
+                <p>Gerard Way, Ray Toro</p>
+              </div>
+            </div>
+            <div class="track-artist">Gerard Way, Ray Toro</div>
+            <div class="track-album">Hazy Shade of Winter</div>
+            <div class="track-duration">2:53</div>
+          </div>
+
+          <div class="track-item">
+            <div class="track-number">8</div>
+            <div class="track-title">
+              <div class="track-actions">
+                <button class="like-btn"><i class="far fa-heart"></i></button>
+                <button class="add-btn"><i class="fas fa-plus"></i></button>
+              </div>
+              <div class="track-info">
+                <h4>Tip Toes</h4>
+                <p>half•alive</p>
+              </div>
+            </div>
+            <div class="track-artist">half•alive</div>
+            <div class="track-album">3</div>
+            <div class="track-duration">3:43</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Playlist selector popup -->
+    <div class="playlist-selector" id="playlist-selector">
+      <div class="playlist-selector-header">
+        <h4>Add to playlist</h4>
+      </div>
+      <ul class="playlist-selector-list">
+        <li class="playlist-selector-item">
+          <i class="fas fa-music"></i>
+          <span>My Playlist #1</span>
+        </li>
+        <li class="playlist-selector-item create-new-playlist">
+          <i class="fas fa-plus"></i>
+          <span>Create new playlist</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Create playlist modal -->
+    <div class="create-playlist-modal" id="create-playlist-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Create New Playlist</h4>
+          <button class="close-modal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="playlist-name">Playlist name</label>
+            <input
+              type="text"
+              id="playlist-name"
+              placeholder="New Playlist"
+              maxlength="100"
+            />
+            <p class="char-count"><span id="name-char-count">0</span>/100</p>
+          </div>
+          <div class="form-group">
+            <label for="playlist-description"
+              >Description <span class="optional">(optional)</span></label
+            >
+            <textarea
+              id="playlist-description"
+              placeholder="Add an optional description"
+              maxlength="300"
+            ></textarea>
+            <p class="char-count"><span id="desc-char-count">0</span>/300</p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="cancel-btn">Cancel</button>
+          <button class="create-btn" disabled>Create</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".search-input");
+        const recentSearches = document.querySelector(".recent-searches");
+        const clearBtn = document.querySelector(".clear-btn");
+        const recentItems = document.querySelectorAll(".recent-list li");
+        const searchIcon = document.querySelector(".search-icon");
+        const homeIcon = document.querySelector(".home-icon");
+        const addButtons = document.querySelectorAll(".add-btn");
+        const playlistSelector = document.getElementById("playlist-selector");
+        const playlistItems = document.querySelectorAll(
+          ".playlist-selector-item:not(.create-new-playlist)"
+        );
+        const createNewPlaylistItem = document.querySelector(
+          ".create-new-playlist"
+        );
+        const sidebarAddButton = document.querySelector(
+          ".sidebar-actions .action-icon:first-child"
+        );
+        const createPlaylistModal = document.getElementById(
+          "create-playlist-modal"
+        );
+        const closeModalBtn = document.querySelector(".close-modal");
+        const cancelBtn = document.querySelector(".cancel-btn");
+        const createBtn = document.querySelector(".create-btn");
+        const playlistNameInput = document.getElementById("playlist-name");
+        const playlistDescInput = document.getElementById(
+          "playlist-description"
+        );
+        const nameCharCount = document.getElementById("name-char-count");
+        const descCharCount = document.getElementById("desc-char-count");
+        const playlistsList = document.querySelector(".playlist-selector-list");
+        const sidebarPlaylistItem = document.querySelector(".playlist-item");
+        const sidebarPlaylistContainer = document.querySelector(".sidebar");
+
+        let currentAddButton = null;
+        let playlists = [{ id: 1, name: "My Playlist #1", tracks: [] }];
+
+        // Home icon click to navigate to home page
+        homeIcon.addEventListener("click", function () {
+          window.location.href = "home.html";
+        });
+
+        // Search icon click to navigate to search page
+        searchIcon.addEventListener("click", function () {
+          window.location.href = "search.html";
+        });
+
+        // Show recent searches when the input is clicked
+        searchInput.addEventListener("click", function () {
+          recentSearches.style.display = "block";
+        });
+
+        // Hide recent searches when clicking outside
+        document.addEventListener("click", function (event) {
+          if (
+            !searchInput.contains(event.target) &&
+            !recentSearches.contains(event.target)
+          ) {
+            recentSearches.style.display = "none";
+          }
+
+          // Hide playlist selector when clicking outside
+          if (
+            !playlistSelector.contains(event.target) &&
+            !event.target.classList.contains("add-btn") &&
+            playlistSelector.classList.contains("show")
+          ) {
+            playlistSelector.classList.remove("show");
+          }
+
+          // Hide modal when clicking outside
+          if (
+            createPlaylistModal.style.display === "flex" &&
+            !event.target.closest(".modal-content") &&
+            !event.target.closest(".action-icon") &&
+            !event.target.closest(".create-new-playlist")
+          ) {
+            createPlaylistModal.style.display = "none";
+          }
+        });
+
+        // Clear all recent searches
+        clearBtn.addEventListener("click", function () {
+          const recentList = document.querySelector(".recent-list");
+          recentList.innerHTML = "";
+          recentSearches.style.display = "none";
+        });
+
+        // Click on a recent search item to fill the input and navigate to search page
+        recentItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            const searchText = this.querySelector("span").textContent;
+            searchInput.value = searchText;
+            recentSearches.style.display = "none";
+            window.location.href = "search.html";
+          });
+        });
+
+        // Like button functionality
+        const likeButtons = document.querySelectorAll(".like-btn");
+        likeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            this.classList.toggle("active");
+            const icon = this.querySelector("i");
+            if (this.classList.contains("active")) {
+              icon.classList.remove("far");
+              icon.classList.add("fas");
+            } else {
+              icon.classList.remove("fas");
+              icon.classList.add("far");
+            }
+          });
+        });
+
+        // Add button functionality
+        addButtons.forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.stopPropagation();
+            // Position the playlist selector
+            const buttonRect = this.getBoundingClientRect();
+            playlistSelector.style.top = buttonRect.bottom + 8 + "px";
+            playlistSelector.style.left = buttonRect.left + "px";
+
+            // Show the playlist selector
+            playlistSelector.classList.add("show");
+
+            // Store the current button
+            currentAddButton = this;
+          });
+        });
+
+        // Playlist selection
+        playlistItems.forEach((item) => {
+          item.addEventListener("click", function () {
+            // Change the current add button to a checkmark
+            if (currentAddButton) {
+              currentAddButton.innerHTML = '<i class="fas fa-check"></i>';
+              currentAddButton.classList.add("added");
+
+              // Get the song info
+              const trackItem = currentAddButton.closest(".track-item");
+              const songTitle =
+                trackItem.querySelector(".track-info h4").textContent;
+              const artistName =
+                trackItem.querySelector(".track-info p").textContent;
+
+              // Add to the playlist
+              const playlistName = this.querySelector("span").textContent;
+              const playlist = playlists.find((p) => p.name === playlistName);
+
+              if (playlist) {
+                playlist.tracks.push({ title: songTitle, artist: artistName });
+                showToast(`Added "${songTitle}" to "${playlistName}"`);
+              }
+            }
+
+            // Hide the playlist selector
+            playlistSelector.classList.remove("show");
+          });
+        });
+
+        // Create new playlist from selector
+        createNewPlaylistItem.addEventListener("click", function () {
+          playlistSelector.classList.remove("show");
+          openCreatePlaylistModal();
+        });
+
+        // Sidebar add button
+        sidebarAddButton.addEventListener("click", function () {
+          openCreatePlaylistModal();
+        });
+
+        // Open create playlist modal
+        function openCreatePlaylistModal() {
+          createPlaylistModal.style.display = "flex";
+          playlistNameInput.value = "";
+          playlistDescInput.value = "";
+          updateCharCount(playlistNameInput, nameCharCount);
+          updateCharCount(playlistDescInput, descCharCount);
+          createBtn.disabled = true;
+        }
+
+        // Close modal
+        closeModalBtn.addEventListener("click", function () {
+          createPlaylistModal.style.display = "none";
+        });
+
+        // Cancel button
+        cancelBtn.addEventListener("click", function () {
+          createPlaylistModal.style.display = "none";
+        });
+
+        // Update character count
+        playlistNameInput.addEventListener("input", function () {
+          updateCharCount(this, nameCharCount);
+          createBtn.disabled = this.value.trim() === "";
+        });
+
+        playlistDescInput.addEventListener("input", function () {
+          updateCharCount(this, descCharCount);
+        });
+
+        function updateCharCount(input, countElement) {
+          const length = input.value.length;
+          countElement.textContent = length;
+        }
+
+        // Create playlist
+        createBtn.addEventListener("click", function () {
+          const name = playlistNameInput.value.trim();
+          const description = playlistDescInput.value.trim();
+
+          if (name) {
+            const newPlaylistId = playlists.length + 1;
+            const newPlaylist = {
+              id: newPlaylistId,
+              name: name,
+              description: description,
+              tracks: [],
+            };
+            playlists.push(newPlaylist);
+
+            // Add to sidebar
+            addPlaylistToSidebar(newPlaylist);
+
+            // Add to selector
+            addPlaylistToSelector(newPlaylist);
+
+            // If we have a track to add
+            if (currentAddButton) {
+              const trackItem = currentAddButton.closest(".track-item");
+              const songTitle =
+                trackItem.querySelector(".track-info h4").textContent;
+              const artistName =
+                trackItem.querySelector(".track-info p").textContent;
+
+              newPlaylist.tracks.push({ title: songTitle, artist: artistName });
+
+              currentAddButton.innerHTML = '<i class="fas fa-check"></i>';
+              currentAddButton.classList.add("added");
+
+              showToast(`Created "${name}" and added song`);
+            } else {
+              showToast(`Created "${name}"`);
+            }
+
+            createPlaylistModal.style.display = "none";
+          }
+        });
+
+        // Add playlist to sidebar
+        function addPlaylistToSidebar(playlist) {
+          const newItem = document.createElement("div");
+          newItem.className = "playlist-item";
+          newItem.innerHTML = `
+                <div class="playlist-album-art">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="playlist-details">
+                    <h4>${playlist.name}</h4>
+                    <p>Playlist • defaultplayer</p>
+                </div>
+            `;
+
+          newItem.addEventListener("click", function () {
+            // We'd navigate to the playlist page or update the current view
+            document.querySelector(".playlist-info h1").textContent =
+              playlist.name;
+            showToast(`Opened "${playlist.name}"`);
+          });
+
+          // Insert after the search bar
+          const searchBar = document.querySelector(".search-bar");
+          if (searchBar.nextElementSibling) {
+            sidebarPlaylistContainer.insertBefore(
+              newItem,
+              searchBar.nextElementSibling
+            );
+          } else {
+            sidebarPlaylistContainer.appendChild(newItem);
+          }
+        }
+
+        // Add playlist to selector
+        function addPlaylistToSelector(playlist) {
+          const newItem = document.createElement("li");
+          newItem.className = "playlist-selector-item";
+          newItem.innerHTML = `
+                <i class="fas fa-music"></i>
+                <span>${playlist.name}</span>
+            `;
+
+          newItem.addEventListener("click", function () {
+            if (currentAddButton) {
+              const trackItem = currentAddButton.closest(".track-item");
+              const songTitle =
+                trackItem.querySelector(".track-info h4").textContent;
+              const artistName =
+                trackItem.querySelector(".track-info p").textContent;
+
+              playlist.tracks.push({ title: songTitle, artist: artistName });
+
+              currentAddButton.innerHTML = '<i class="fas fa-check"></i>';
+              currentAddButton.classList.add("added");
+
+              showToast(`Added "${songTitle}" to "${playlist.name}"`);
+              playlistSelector.classList.remove("show");
+            }
+          });
+
+          // Insert before the "Create new playlist" item
+          playlistsList.insertBefore(newItem, createNewPlaylistItem);
+        }
+
+        // Show toast message
+        function showToast(message) {
+          // Create toast if it doesn't exist
+          let toast = document.getElementById("toast");
+          if (!toast) {
+            toast = document.createElement("div");
+            toast.id = "toast";
+            toast.className = "toast";
+            document.body.appendChild(toast);
+
+            // Add toast styles
+            const style = document.createElement("style");
+            style.textContent = `
+                    .toast {
+                        position: fixed;
+                        bottom: 20px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background-color: #1db954;
+                        color: white;
+                        padding: 12px 24px;
+                        border-radius: 32px;
+                        font-size: 14px;
+                        font-weight: 700;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+                        z-index: 10000;
+                        opacity: 0;
+                        transition: opacity 0.3s, transform 0.3s;
+                        pointer-events: none;
+                    }
+                    .toast.show {
+                        opacity: 1;
+                        transform: translateX(-50%) translateY(0);
+                    }
+                `;
+            document.head.appendChild(style);
+          }
+
+          // Show toast
+          toast.textContent = message;
+          toast.classList.add("show");
+
+          // Hide after 3 seconds
+          setTimeout(() => {
+            toast.classList.remove("show");
+          }, 3000);
+        }
+      });
+    </script>
+  </body>
+</html>

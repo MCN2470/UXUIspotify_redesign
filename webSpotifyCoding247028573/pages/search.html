@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify - Search: Taylor Swift</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .search-results {
+        padding: 24px;
+      }
+
+      .search-results-header {
+        margin-bottom: 24px;
+      }
+
+      .search-results-header h1 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .search-results-header p {
+        color: #b3b3b3;
+        font-size: 14px;
+      }
+
+      .result-section {
+        margin-bottom: 40px;
+      }
+
+      .result-section h2 {
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+
+      .result-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 24px;
+      }
+
+      .result-card {
+        background-color: #181818;
+        border-radius: 8px;
+        padding: 16px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+      }
+
+      .result-card:hover {
+        background-color: #282828;
+      }
+
+      .result-image {
+        width: 100%;
+        aspect-ratio: 1;
+        margin-bottom: 16px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+      }
+
+      .result-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .artist-image {
+        border-radius: 50%;
+      }
+
+      .play-overlay {
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        background-color: #1db954;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: black;
+        font-size: 16px;
+        opacity: 0;
+        transform: translateY(8px);
+        transition: all 0.3s;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .result-card:hover .play-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .result-card h3 {
+        font-size: 16px;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .result-card p {
+        font-size: 14px;
+        color: #b3b3b3;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .track-result {
+        display: grid;
+        grid-template-columns: 50px 1fr 150px;
+        align-items: center;
+        padding: 8px 16px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+        position: relative;
+      }
+
+      .track-result:hover {
+        background-color: #282828;
+      }
+
+      .track-result:hover .track-number {
+        display: none;
+      }
+
+      .track-result:hover .track-play-btn {
+        display: flex;
+      }
+
+      .track-number {
+        color: #b3b3b3;
+        font-size: 16px;
+      }
+
+      .track-play-btn {
+        display: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: #1db954;
+        color: black;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .track-info {
+        overflow: hidden;
+      }
+
+      .track-info h3 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .track-info p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        color: #b3b3b3;
+      }
+
+      .track-duration {
+        text-align: right;
+        color: #b3b3b3;
+        font-size: 14px;
+      }
+
+      .see-all {
+        color: #b3b3b3;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 16px;
+        transition: color 0.2s;
+      }
+
+      .see-all:hover {
+        color: white;
+      }
+
+      .section-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top navigation bar -->
+    <div class="topnav">
+      <div class="left-section">
+        <div class="spotify-logo">
+          <img
+            src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"
+            alt="Spotify"
+          />
+        </div>
+        <div class="home-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="What do you want to play?"
+            class="search-input"
+            value="Taylor Swift"
+          />
+          <div class="search-symbols">
+            <svg
+              class="menu-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6H20M4 12H20M4 18H12"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="divider-vertical"></span>
+            <svg
+              class="basket-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 9H19L17.5 19H6.5L5 9Z"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 9V6C8 4.34315 9.34315 3 11 3H13C14.6569 3 16 4.34315 16 6V9"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="14" r="1.5" stroke="#F1F1F1" />
+            </svg>
+          </div>
+          <div class="recent-searches">
+            <div class="recent-header">
+              <h4>Recent Searches</h4>
+              <button class="clear-btn">Clear all</button>
+            </div>
+            <ul class="recent-list">
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Drake - One Dance</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Billie Eilish</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Hip Hop Playlist</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Lofi Study Beats</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Taylor Swift</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="nav-links">
+          <a href="#">Premium</a>
+          <a href="#">Support</a>
+          <a href="#">Download</a>
+        </div>
+        <div class="divider-vertical"></div>
+        <a href="#" class="install-link">Install App</a>
+        <a href="#" class="signup-link">Sign up</a>
+        <button class="login-btn">Log in</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="library-header">
+          <span>Your Library</span>
+          <button class="add-btn"><i class="fas fa-plus"></i></button>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="sidebar-card">
+            <h3>Create your first playlist</h3>
+            <p>It's easy, we'll help you</p>
+            <button class="action-btn">Create playlist</button>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Let's find some podcasts to follow</h3>
+            <p>We'll keep you updated on new episodes</p>
+            <button class="action-btn">Browse podcasts</button>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Recent played</h3>
+            <p>It's easy to look back.</p>
+            <button class="action-btn">Recent playlist</button>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="footer-links">
+            <a href="#">Legal</a>
+            <a href="#">Safety & Privacy Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookies</a>
+            <a href="#">About Ads</a>
+            <a href="#">Accessibility</a>
+          </div>
+
+          <div class="footer-actions">
+            <button class="language-btn">
+              <i class="fas fa-globe"></i> English
+            </button>
+            <button class="help-btn">
+              <i class="fas fa-circle-info"></i> Help
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="content">
+          <section class="search-results">
+            <div class="search-results-header">
+              <h1>Search results for "Taylor Swift"</h1>
+              <p>Showing top results and categories</p>
+            </div>
+
+            <div class="result-section">
+              <div class="section-header">
+                <h2>Artists</h2>
+                <a href="#" class="see-all">See all</a>
+              </div>
+              <div class="result-grid">
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://i.scdn.co/image/ab6761610000e5eb8ae7f2aaa9817a704a87ea36"
+                      alt="Taylor Swift"
+                      class="artist-image"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Taylor Swift</h3>
+                  <p>Artist</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://i.scdn.co/image/ab67616d00001e022a7db835b912dc5014bd37f4"
+                      alt="Taylor Swift Music"
+                      class="artist-image"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Taylor Swift Music</h3>
+                  <p>Artist</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-section">
+              <div class="section-header">
+                <h2>Albums</h2>
+                <a href="#" class="see-all">See all</a>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://i.scdn.co/image/ab67616d0000b2732a7db835b912dc5014bd37f4"
+                      alt="Midnights"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Midnights</h3>
+                  <p>2022 • Album</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png"
+                      alt="Reputation"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Reputation</h3>
+                  <p>2017 • Album</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://i.scdn.co/image/ab67616d0000b2735ef878a782c987d38d82b605"
+                      alt="Lover"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Lover</h3>
+                  <p>2019 • Album</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png"
+                      alt="1989"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>1989</h3>
+                  <p>2014 • Album</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://i.scdn.co/image/ab67616d0000b273c288028c2592f400dd0b9233"
+                      alt="folklore"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>folklore</h3>
+                  <p>2020 • Album</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-section">
+              <div class="section-header">
+                <h2>Featured Song</h2>
+              </div>
+
+              <div
+                class="result-card"
+                style="
+                  max-width: 100%;
+                  display: flex;
+                  align-items: center;
+                  gap: 20px;
+                  padding: 16px 24px;
+                "
+              >
+                <div
+                  class="result-image"
+                  style="
+                    flex: 0 0 80px;
+                    width: 80px;
+                    height: 80px;
+                    margin-bottom: 0;
+                  "
+                >
+                  <img
+                    src="https://i.scdn.co/image/ab67616d0000b2732a7db835b912dc5014bd37f4"
+                    alt="Anti-Hero"
+                  />
+                  <div
+                    class="play-overlay"
+                    style="width: 32px; height: 32px; font-size: 12px"
+                  >
+                    <i class="fas fa-play"></i>
+                  </div>
+                </div>
+                <div>
+                  <h3 style="font-size: 20px; margin-bottom: 8px">Anti-Hero</h3>
+                  <p>Taylor Swift • Midnights • 2022</p>
+                </div>
+                <div
+                  style="
+                    display: flex;
+                    align-items: center;
+                    gap: 20px;
+                    margin-left: auto;
+                  "
+                >
+                  <button
+                    class="like-btn"
+                    style="
+                      background: none;
+                      border: none;
+                      color: #b3b3b3;
+                      font-size: 18px;
+                      cursor: pointer;
+                      padding: 8px;
+                      transition: color 0.2s;
+                    "
+                  >
+                    <i class="far fa-heart"></i>
+                  </button>
+                  <div style="color: #b3b3b3">3:20</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-section">
+              <div class="section-header">
+                <h2>Songs</h2>
+                <a href="#" class="see-all">See all</a>
+              </div>
+
+              <div class="tracks-container">
+                <div class="track-result">
+                  <div class="track-number">1</div>
+                  <div class="track-play-btn">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="track-info">
+                    <h3>Anti-Hero</h3>
+                    <p>Taylor Swift • Midnights</p>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <button
+                      class="like-btn"
+                      style="
+                        background: none;
+                        border: none;
+                        color: #b3b3b3;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: color 0.2s;
+                      "
+                    >
+                      <i class="far fa-heart"></i>
+                    </button>
+                    <div class="track-duration">3:20</div>
+                  </div>
+                </div>
+
+                <div class="track-result">
+                  <div class="track-number">2</div>
+                  <div class="track-play-btn">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="track-info">
+                    <h3>Cruel Summer</h3>
+                    <p>Taylor Swift • Lover</p>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <button
+                      class="like-btn"
+                      style="
+                        background: none;
+                        border: none;
+                        color: #b3b3b3;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: color 0.2s;
+                      "
+                    >
+                      <i class="far fa-heart"></i>
+                    </button>
+                    <div class="track-duration">2:58</div>
+                  </div>
+                </div>
+
+                <div class="track-result">
+                  <div class="track-number">3</div>
+                  <div class="track-play-btn">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="track-info">
+                    <h3>Blank Space</h3>
+                    <p>Taylor Swift • 1989</p>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <button
+                      class="like-btn"
+                      style="
+                        background: none;
+                        border: none;
+                        color: #b3b3b3;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: color 0.2s;
+                      "
+                    >
+                      <i class="far fa-heart"></i>
+                    </button>
+                    <div class="track-duration">3:51</div>
+                  </div>
+                </div>
+
+                <div class="track-result">
+                  <div class="track-number">4</div>
+                  <div class="track-play-btn">
+                    <i class="fas fa-play"></i>
+                  </div>
+                  <div class="track-info">
+                    <h3>Cardigan</h3>
+                    <p>Taylor Swift • folklore</p>
+                  </div>
+                  <div style="display: flex; align-items: center; gap: 12px">
+                    <button
+                      class="like-btn"
+                      style="
+                        background: none;
+                        border: none;
+                        color: #b3b3b3;
+                        font-size: 16px;
+                        cursor: pointer;
+                        transition: color 0.2s;
+                      "
+                    >
+                      <i class="far fa-heart"></i>
+                    </button>
+                    <div class="track-duration">3:59</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="result-section">
+              <div class="section-header">
+                <h2>Playlists</h2>
+                <a href="#" class="see-all">See all</a>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://mosaic.scdn.co/300/ab67616d00001e022a7db835b912dc5014bd37f4ab67616d00001e0233b8541201f1ef38941631d3ab67616d00001e025ef878a782c987d38d82b605ab67616d00001e02c288028c2592f400dd0b9233"
+                      alt="This Is Taylor Swift"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>This Is Taylor Swift</h3>
+                  <p>By Spotify</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://i.scdn.co/image/ab67706f000000029249b35f23fb596b6f006a15"
+                      alt="Taylor Swift Essentials"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Taylor Swift Essentials</h3>
+                  <p>By Spotify</p>
+                </div>
+
+                <div class="result-card">
+                  <div class="result-image">
+                    <img
+                      src="https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png"
+                      alt="Taylor's Version"
+                    />
+                    <div class="play-overlay">
+                      <i class="fas fa-play"></i>
+                    </div>
+                  </div>
+                  <h3>Taylor's Version</h3>
+                  <p>All of Taylor Swift's re-recordings in one playlist</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.querySelector(".search-input");
+      const recentSearches = document.querySelector(".recent-searches");
+      const clearBtn = document.querySelector(".clear-btn");
+      const recentItems = document.querySelectorAll(".recent-list li");
+      const searchIcon = document.querySelector(".search-icon");
+      const homeIcon = document.querySelector(".home-icon");
+
+      // Home icon click to navigate to home page
+      homeIcon.addEventListener("click", function () {
+        window.location.href = "home.html";
+      });
+
+      // Search icon click to navigate to search page
+      searchIcon.addEventListener("click", function () {
+        window.location.href = "search.html";
+      });
+
+      // Show recent searches when the input is clicked
+      searchInput.addEventListener("click", function () {
+        recentSearches.style.display = "block";
+      });
+
+      // Hide recent searches when clicking outside
+      document.addEventListener("click", function (event) {
+        if (
+          !searchInput.contains(event.target) &&
+          !recentSearches.contains(event.target)
+        ) {
+          recentSearches.style.display = "none";
+        }
+      });
+
+      // Clear all recent searches
+      clearBtn.addEventListener("click", function () {
+        const recentList = document.querySelector(".recent-list");
+        recentList.innerHTML = "";
+        recentSearches.style.display = "none";
+      });
+
+      // Click on a recent search item to fill the input and navigate to search page
+      recentItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          const searchText = this.querySelector("span").textContent;
+          searchInput.value = searchText;
+          recentSearches.style.display = "none";
+          window.location.href = "search.html";
+        });
+      });
+
+      // Like button functionality
+      const likeButtons = document.querySelectorAll(".like-btn");
+      likeButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const icon = this.querySelector("i");
+
+          if (icon.classList.contains("far")) {
+            // Not liked -> Liked
+            icon.classList.remove("far");
+            icon.classList.add("fas");
+            this.style.color = "#1DB954"; // Spotify green
+          } else {
+            // Liked -> Not liked
+            icon.classList.remove("fas");
+            icon.classList.add("far");
+            this.style.color = "#b3b3b3"; // Default gray
+          }
+        });
+      });
+
+      // Navigation for playlist and help buttons
+      const createPlaylistBtn = document.querySelector(
+        ".sidebar-card:nth-child(1) .action-btn"
+      );
+      const browsePodcastsBtn = document.querySelector(
+        ".sidebar-card:nth-child(2) .action-btn"
+      );
+      const recentPlaylistBtn = document.querySelector(
+        ".sidebar-card:nth-child(3) .action-btn"
+      );
+      const helpBtn = document.querySelector(".help-btn");
+
+      createPlaylistBtn.addEventListener("click", function () {
+        window.location.href = "playlist.html";
+      });
+
+      browsePodcastsBtn.addEventListener("click", function () {
+        window.location.href = "playlist.html";
+      });
+
+      recentPlaylistBtn.addEventListener("click", function () {
+        window.location.href = "playlist.html";
+      });
+
+      helpBtn.addEventListener("click", function () {
+        window.location.href = "help.html";
+      });
+    });
+  </script>
+</html>

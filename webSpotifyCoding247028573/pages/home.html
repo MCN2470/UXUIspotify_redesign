@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify - Web Player</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Top navigation bar -->
+    <div class="topnav">
+      <div class="left-section">
+        <div class="spotify-logo">
+          <img
+            src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"
+            alt="Spotify"
+          />
+        </div>
+        <div class="home-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="What do you want to play?"
+            class="search-input"
+          />
+          <div class="search-symbols">
+            <svg
+              class="menu-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6H20M4 12H20M4 18H12"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="divider-vertical"></span>
+            <svg
+              class="basket-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 9H19L17.5 19H6.5L5 9Z"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 9V6C8 4.34315 9.34315 3 11 3H13C14.6569 3 16 4.34315 16 6V9"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="14" r="1.5" stroke="#F1F1F1" />
+            </svg>
+          </div>
+          <div class="recent-searches">
+            <div class="recent-header">
+              <h4>Recent Searches</h4>
+              <button class="clear-btn">Clear all</button>
+            </div>
+            <ul class="recent-list">
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Drake</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Billie Eilish</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Hip Hop Playlist</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Lofi Study Beats</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Taylor Swift</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="nav-links">
+          <a href="#">Premium</a>
+          <a href="#">Support</a>
+          <a href="#">Download</a>
+        </div>
+        <div class="divider-vertical"></div>
+        <a href="#" class="install-link">Install App</a>
+        <a href="#" class="signup-link">Sign up</a>
+        <button class="login-btn">Log in</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="library-header">
+          <span>Your Library</span>
+          <button class="add-btn"><i class="fas fa-plus"></i></button>
+        </div>
+
+        <div class="sidebar-content">
+          <div class="sidebar-card">
+            <h3>Create your first playlist</h3>
+            <p>It's easy, we'll help you</p>
+            <button class="action-btn">Create playlist</button>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Let's find some podcasts to follow</h3>
+            <p>We'll keep you updated on new episodes</p>
+            <button class="action-btn">Browse podcasts</button>
+          </div>
+
+          <div class="sidebar-card">
+            <h3>Recent played</h3>
+            <p>It's easy to look back.</p>
+            <button class="action-btn">Recent playlist</button>
+          </div>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="footer-links">
+            <a href="#">Legal</a>
+            <a href="#">Safety & Privacy Center</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookies</a>
+            <a href="#">About Ads</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Cookies</a>
+          </div>
+
+          <div class="footer-actions">
+            <button class="language-btn">
+              <i class="fas fa-globe"></i> English
+            </button>
+            <button class="help-btn">
+              <i class="fas fa-circle-info"></i> Help
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="content">
+          <section class="top-artists">
+            <h1>Top Artists</h1>
+            <div class="artist-grid">
+              <div class="artist-card">
+                <div class="artist-img">
+                  <img
+                    src="https://images.pexels.com/photos/144429/pexels-photo-144429.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="Artist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>The Weeknd</h3>
+                <p>Artist</p>
+              </div>
+              <div class="artist-card">
+                <div class="artist-img">
+                  <img
+                    src="https://images.pexels.com/photos/1699161/pexels-photo-1699161.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="Artist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Kendrick Lamar</h3>
+                <p>Artist</p>
+              </div>
+              <div class="artist-card">
+                <div class="artist-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/191125_Taylor_Swift_at_the_2019_American_Music_Awards_%28cropped%29.png"
+                    alt="Artist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Taylor Swift</h3>
+                <p>Artist</p>
+              </div>
+              <div class="artist-card">
+                <div class="artist-img">
+                  <img
+                    src="https://images.pexels.com/photos/1644616/pexels-photo-1644616.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    alt="Artist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Billie Eilish</h3>
+                <p>Artist</p>
+              </div>
+              <div class="artist-card">
+                <div class="artist-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/2/28/Drake_July_2016.jpg"
+                    alt="Artist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Drake</h3>
+                <p>Artist</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="featured-playlists">
+            <div class="section-header">
+              <h2>Featured Playlists</h2>
+              <a href="#">Show all</a>
+            </div>
+            <div class="playlist-cards">
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2070&auto=format&fit=crop"
+                    alt="Playlist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Today's Top Hits</h3>
+                <p>The hottest tracks in the world right now</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?q=80&w=2070&auto=format&fit=crop"
+                    alt="Playlist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Discover Weekly</h3>
+                <p>Your weekly mixtape of fresh music</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1551410224-699683e15636?q=80&w=2070&auto=format&fit=crop"
+                    alt="Playlist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>RapCaviar</h3>
+                <p>New music from Kendrick Lamar, J. Cole and more</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1571330735066-03aaa9429d89?q=80&w=2070&auto=format&fit=crop"
+                    alt="Playlist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Chill Lofi Study Beats</h3>
+                <p>The perfect study beats, twenty four seven</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=2070&auto=format&fit=crop"
+                    alt="Playlist"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Rock Classics</h3>
+                <p>
+                  Rock legends & epic songs that continue to inspire generations
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="new-releases">
+            <div class="section-header">
+              <h2>New Releases</h2>
+              <a href="#">Show all</a>
+            </div>
+            <div class="playlist-cards">
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png"
+                    alt="Album"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>After Hours</h3>
+                <p>The Weeknd</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/5/51/Kendrick_Lamar_-_Damn.png"
+                    alt="Album"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>DAMN.</h3>
+                <p>Kendrick Lamar</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/f/f5/Dua_Lipa_-_Future_Nostalgia_%28Official_Album_Cover%29.png"
+                    alt="Album"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Future Nostalgia</h3>
+                <p>Dua Lipa</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/a/a7/The_Off-Season_-_J_Cole.png"
+                    alt="Album"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>The Off-Season</h3>
+                <p>J. Cole</p>
+              </div>
+              <div class="playlist-card">
+                <div class="card-img">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/en/9/9b/Tame_Impala_-_Currents.png"
+                    alt="Album"
+                  />
+                  <button class="play-btn"><i class="fas fa-play"></i></button>
+                </div>
+                <h3>Currents</h3>
+                <p>Tame Impala</p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.querySelector(".search-input");
+      const recentSearches = document.querySelector(".recent-searches");
+      const clearBtn = document.querySelector(".clear-btn");
+      const recentItems = document.querySelectorAll(".recent-list li");
+      const searchIcon = document.querySelector(".search-icon");
+      const homeIcon = document.querySelector(".home-icon");
+
+      // Home icon click to navigate to home page
+      homeIcon.addEventListener("click", function () {
+        window.location.href = "home.html";
+      });
+
+      // Search icon click to navigate to search page
+      searchIcon.addEventListener("click", function () {
+        window.location.href = "search.html";
+      });
+
+      // Show recent searches when the input is clicked
+      searchInput.addEventListener("click", function () {
+        recentSearches.style.display = "block";
+      });
+
+      // Hide recent searches when clicking outside
+      document.addEventListener("click", function (event) {
+        if (
+          !searchInput.contains(event.target) &&
+          !recentSearches.contains(event.target)
+        ) {
+          recentSearches.style.display = "none";
+        }
+      });
+
+      // Clear all recent searches
+      clearBtn.addEventListener("click", function () {
+        const recentList = document.querySelector(".recent-list");
+        recentList.innerHTML = "";
+        recentSearches.style.display = "none";
+      });
+
+      // Click on a recent search item to fill the input and navigate to search page
+      recentItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          const searchText = this.querySelector("span").textContent;
+          searchInput.value = searchText;
+          recentSearches.style.display = "none";
+          window.location.href = "search.html";
+        });
+      });
+
+      // Navigation for playlist and help buttons
+      const createPlaylistBtn = document.querySelector(
+        ".sidebar-card:nth-child(1) .action-btn"
+      );
+      const recentPlaylistBtn = document.querySelector(
+        ".sidebar-card:nth-child(3) .action-btn"
+      );
+      const helpBtn = document.querySelector(".help-btn");
+
+      createPlaylistBtn.addEventListener("click", function () {
+        window.location.href = "playlist.html";
+      });
+
+      recentPlaylistBtn.addEventListener("click", function () {
+        window.location.href = "playlist.html";
+      });
+
+      helpBtn.addEventListener("click", function () {
+        window.location.href = "help.html";
+      });
+    });
+  </script>
+</html>

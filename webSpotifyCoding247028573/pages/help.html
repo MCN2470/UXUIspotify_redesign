@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotify - Help</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* Override styles for help page */
+      .container {
+        display: block;
+        padding-top: 56px;
+      }
+
+      .main-content {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .help-header {
+        margin-bottom: 24px;
+      }
+
+      .help-header h1 {
+        font-size: 24px;
+        margin-bottom: 16px;
+      }
+
+      .search-help {
+        max-width: 400px;
+      }
+
+      .help-categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .category-card {
+        padding: 16px;
+        font-size: 14px;
+      }
+
+      .category-card h3 {
+        font-size: 15px;
+        margin-bottom: 4px;
+      }
+
+      .category-card p {
+        font-size: 12px;
+      }
+
+      .category-card i {
+        font-size: 24px;
+        margin-bottom: 8px;
+      }
+
+      .faq-section h2 {
+        font-size: 20px;
+        margin-bottom: 16px;
+      }
+
+      .faq-item {
+        background-color: #181818;
+        border-radius: 4px;
+        margin-bottom: 1px;
+        overflow: hidden;
+      }
+
+      .faq-question {
+        padding: 16px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .faq-question:hover {
+        background-color: #282828;
+      }
+
+      .faq-question i {
+        font-size: 16px;
+        transition: transform 0.3s ease;
+      }
+
+      .faq-answer {
+        padding: 0 24px 16px;
+        color: #b3b3b3;
+        font-size: 13px;
+        line-height: 1.6;
+        display: none;
+      }
+
+      .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+      }
+
+      .faq-item.active .faq-answer {
+        display: block;
+      }
+
+      .help-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .faq-icon {
+        margin-right: 12px;
+        color: #1db954;
+        width: 16px;
+        display: inline-block;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top navigation bar -->
+    <div class="topnav">
+      <div class="left-section">
+        <div class="spotify-logo">
+          <img
+            src="https://storage.googleapis.com/pr-newsroom-wp/1/2018/11/Spotify_Logo_RGB_White.png"
+            alt="Spotify"
+          />
+        </div>
+        <div class="home-icon">
+          <i class="fas fa-home"></i>
+        </div>
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            type="text"
+            placeholder="What do you want to play?"
+            class="search-input"
+          />
+          <div class="search-symbols">
+            <svg
+              class="menu-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 6H20M4 12H20M4 18H12"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <span class="divider-vertical"></span>
+            <svg
+              class="basket-icon"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 9H19L17.5 19H6.5L5 9Z"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M8 9V6C8 4.34315 9.34315 3 11 3H13C14.6569 3 16 4.34315 16 6V9"
+                stroke="#F1F1F1"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <circle cx="12" cy="14" r="1.5" stroke="#F1F1F1" />
+            </svg>
+          </div>
+          <div class="recent-searches">
+            <div class="recent-header">
+              <h4>Recent Searches</h4>
+              <button class="clear-btn">Clear all</button>
+            </div>
+            <ul class="recent-list">
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Drake</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Billie Eilish</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Hip Hop Playlist</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Lofi Study Beats</span>
+              </li>
+              <li>
+                <i class="fas fa-history"></i>
+                <span>Taylor Swift</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="right-section">
+        <div class="nav-links">
+          <a href="#">Premium</a>
+          <a href="#">Support</a>
+          <a href="#">Download</a>
+        </div>
+        <div class="divider-vertical"></div>
+        <a href="#" class="install-link">Install App</a>
+        <a href="#" class="signup-link">Sign up</a>
+        <button class="login-btn">Log in</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Main Content (Without Sidebar) -->
+      <div class="main-content">
+        <div class="content help-container">
+          <section class="help-header">
+            <h1>How can we help you?</h1>
+            <div class="search-help">
+              <input type="text" placeholder="Search for help" />
+              <button><i class="fas fa-search"></i></button>
+            </div>
+          </section>
+
+          <section class="help-categories">
+            <div class="category-card">
+              <i class="fas fa-credit-card"></i>
+              <h3>Account & Payment</h3>
+              <p>
+                Login issues, payment methods, subscriptions, and account
+                settings
+              </p>
+            </div>
+            <div class="category-card">
+              <i class="fas fa-mobile-alt"></i>
+              <h3>App & Devices</h3>
+              <p>Device issues, app troubleshooting, and connection problems</p>
+            </div>
+            <div class="category-card">
+              <i class="fas fa-music"></i>
+              <h3>Music & Podcasts</h3>
+              <p>
+                Playlists, streaming issues, content availability, and audio
+                quality
+              </p>
+            </div>
+            <div class="category-card">
+              <i class="fas fa-user-friends"></i>
+              <h3>Community & Social</h3>
+              <p>Following artists, sharing playlists, and social features</p>
+            </div>
+          </section>
+
+          <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span
+                  ><i class="fas fa-credit-card faq-icon"></i> Payments &
+                  billing</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Get help with payment methods, billing issues, subscription
+                  plans, and managing your payments.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span
+                  ><i class="fas fa-user faq-icon"></i> Manage your
+                  account</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Update your profile, change your email address, password, or
+                  settings, and manage your account preferences.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span><i class="fas fa-crown faq-icon"></i> Premium plans</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Learn about different Premium plans, features, benefits, and
+                  how to upgrade your account.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span><i class="fas fa-th faq-icon"></i> In-app features</span>
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Discover how to use Spotify features, create playlists, follow
+                  artists, and customize your experience.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span
+                  ><i class="fas fa-mobile-alt faq-icon"></i> Devices &
+                  troubleshooting</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Solve common device issues, connection problems, and
+                  troubleshoot the Spotify app on various platforms.
+                </p>
+              </div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-question">
+                <span
+                  ><i class="fas fa-shield-alt faq-icon"></i> Safety &
+                  privacy</span
+                >
+                <i class="fas fa-chevron-down"></i>
+              </div>
+              <div class="faq-answer">
+                <p>
+                  Learn about Spotify's privacy policy, data protection, and how
+                  to keep your account secure.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const searchInput = document.querySelector(".search-input");
+      const recentSearches = document.querySelector(".recent-searches");
+      const clearBtn = document.querySelector(".clear-btn");
+      const recentItems = document.querySelectorAll(".recent-list li");
+      const searchIcon = document.querySelector(".search-icon");
+      const homeIcon = document.querySelector(".home-icon");
+      const faqItems = document.querySelectorAll(".faq-item");
+
+      // Home icon click to navigate to home page
+      homeIcon.addEventListener("click", function () {
+        window.location.href = "home.html";
+      });
+
+      // Search icon click to navigate to search page
+      searchIcon.addEventListener("click", function () {
+        window.location.href = "search.html";
+      });
+
+      // Show recent searches when the input is clicked
+      searchInput.addEventListener("click", function () {
+        recentSearches.style.display = "block";
+      });
+
+      // Hide recent searches when clicking outside
+      document.addEventListener("click", function (event) {
+        if (
+          !searchInput.contains(event.target) &&
+          !recentSearches.contains(event.target)
+        ) {
+          recentSearches.style.display = "none";
+        }
+      });
+
+      // Clear all recent searches
+      clearBtn.addEventListener("click", function () {
+        const recentList = document.querySelector(".recent-list");
+        recentList.innerHTML = "";
+        recentSearches.style.display = "none";
+      });
+
+      // Click on a recent search item to fill the input and navigate to search page
+      recentItems.forEach((item) => {
+        item.addEventListener("click", function () {
+          const searchText = this.querySelector("span").textContent;
+          searchInput.value = searchText;
+          recentSearches.style.display = "none";
+          window.location.href = "search.html";
+        });
+      });
+
+      // FAQ accordion functionality
+      faqItems.forEach((item) => {
+        const question = item.querySelector(".faq-question");
+        question.addEventListener("click", function () {
+          item.classList.toggle("active");
+        });
+      });
+    });
+  </script>
+</html>

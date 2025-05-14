@@ -1,0 +1,933 @@
+/* ===================================
+    STYLES (ALL PAGES)
+==================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Circular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #121212;
+  color: white;
+  overflow: hidden;
+  height: 100vh;
+  position: relative;
+}
+
+/* ===================================
+   NAVIGATION & HEADER (ALL PAGES)
+==================================== */
+.topnav {
+  background-color: #000;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.spotify-logo img {
+  height: 28px;
+  margin-right: 8px;
+}
+
+.home-icon {
+  background-color: #242424;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* Search Container (All Pages) */
+.left-section .search-container {
+  position: relative;
+  width: 360px;
+}
+
+.left-section .search-container .nav-icons {
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+}
+
+.left-section .search-container .nav-icons svg {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.left-section .search-container .nav-icons svg:hover {
+  transform: scale(1.1);
+}
+
+.left-section .search-container .nav-icons .divider-vertical {
+  width: 1px;
+  height: 24px;
+  background-color: #282828;
+  margin: 0 8px;
+}
+
+.left-section .search-container input {
+  width: 100%;
+  background-color: #242424;
+  border: none;
+  height: 36px;
+  border-radius: 500px;
+  padding: 6px 112px 6px 40px;
+  color: white;
+  font-size: 14px;
+}
+
+/* Recent Searches Dropdown */
+.left-section .search-container .recent-searches {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background-color: #242424;
+  border-radius: 4px;
+  box-shadow: 0 16px 24px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 8px 0;
+  display: none;
+}
+
+.left-section
+  .search-container
+  .search-input:focus
+  + .search-symbols
+  + .recent-searches,
+.left-section .search-container .recent-searches:hover {
+  display: block;
+}
+
+.left-section .search-container .recent-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  border-bottom: 1px solid #333;
+  margin-bottom: 8px;
+}
+
+.left-section .search-container .recent-header h4 {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.left-section .search-container .recent-header .clear-btn {
+  font-size: 12px;
+  color: #1db954;
+  font-weight: 700;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.left-section .search-container .recent-header .clear-btn:hover {
+  text-decoration: underline;
+}
+
+.left-section .search-container .recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.left-section .search-container .recent-list li {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.left-section .search-container .recent-list li:hover {
+  background-color: #333;
+}
+
+.left-section .search-container .recent-list li i {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+
+.left-section .search-container .recent-list li span {
+  font-size: 14px;
+}
+
+.left-section .search-container .search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b3b3b3;
+  z-index: 1;
+}
+
+.left-section .search-container .search-symbols {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.left-section .search-container .search-symbols svg {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.left-section .search-container .search-symbols svg:hover {
+  transform: scale(1.1);
+}
+
+.left-section .search-container .search-symbols .menu-icon,
+.left-section .search-container .search-symbols .basket-icon {
+  margin-left: 0;
+}
+
+.left-section .search-container .search-symbols .divider-vertical {
+  width: 1px;
+  height: 16px;
+  background-color: #666;
+  margin: 0 4px;
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #1db954;
+  text-decoration: none;
+}
+
+.divider-vertical {
+  width: 1px;
+  height: 24px;
+  background-color: #282828;
+}
+
+.install-link,
+.signup-link {
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.install-link:hover,
+.signup-link:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.login-btn {
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 500px;
+  padding: 8px 32px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+  color: black;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+  padding-top: 56px; /* Add padding to accommodate the fixed navbar */
+}
+
+a {
+  text-decoration: none;
+  color: #b3b3b3;
+}
+
+a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+button {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  cursor: pointer;
+}
+
+button:hover {
+  color: white;
+}
+
+/* ===================================
+   SIDEBAR (ALL PAGES)
+==================================== */
+.sidebar {
+  background-color: #121212;
+  width: 320px;
+  height: 100%;
+  overflow-y: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border-right: 1px solid #282828;
+}
+
+.library-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.add-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: transparent;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.add-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-content {
+  flex-grow: 1;
+  padding: 0 8px;
+}
+
+.sidebar-card {
+  background-color: #242424;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.sidebar-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.sidebar-card p {
+  font-size: 14px;
+  color: #a7a7a7;
+  margin-bottom: 16px;
+}
+
+.action-btn {
+  background-color: white;
+  color: black;
+  border-radius: 500px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.action-btn:hover {
+  transform: scale(1.04);
+}
+
+.sidebar-footer {
+  padding: 16px 24px 24px;
+  margin-top: auto;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.footer-links a {
+  font-size: 11px;
+  color: #a7a7a7;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.language-btn,
+.help-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #121212;
+  border: 1px solid #727272;
+  border-radius: 500px;
+  padding: 5px 12px;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+}
+
+.language-btn:hover,
+.help-btn:hover {
+  border-color: white;
+  transform: scale(1.02);
+}
+
+/* ===================================
+   MAIN CONTENT (COMMON STYLES)
+==================================== */
+.main-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  background: linear-gradient(to bottom, #121212 0%, #121212 100%);
+  padding-bottom: 24px;
+}
+
+.content {
+  padding: 24px 32px;
+}
+
+/* ===================================
+   HOME PAGE STYLES
+==================================== */
+/* Top Artists Section */
+.top-artists h1 {
+  margin: 32px 0 24px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.artist-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.artist-card {
+  background-color: #181818;
+  padding: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.artist-card:hover {
+  background-color: #282828;
+}
+
+.artist-img {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.artist-img img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.artist-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artist-card p {
+  font-size: 14px;
+  color: #b3b3b3;
+  font-weight: 400;
+}
+
+.artist-img .play-btn {
+  position: absolute;
+  bottom: 0;
+  right: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1db954;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.artist-card:hover .play-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.play-btn:hover {
+  transform: scale(1.08);
+  background-color: #1ed760;
+}
+
+/* Featured Playlists Section */
+.featured-playlists {
+  margin-top: 48px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.section-header a {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.playlist-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+.playlist-card {
+  background-color: #181818;
+  padding: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.playlist-card:hover {
+  background-color: #282828;
+}
+
+.card-img {
+  position: relative;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.card-img img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.card-img .play-btn {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1db954;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.playlist-card:hover .play-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.playlist-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.playlist-card p {
+  font-size: 14px;
+  color: #b3b3b3;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* New Releases Section */
+.new-releases {
+  margin-top: 48px;
+  margin-bottom: 32px;
+}
+
+/* ===================================
+   SEARCH PAGE STYLES
+==================================== */
+.search-categories h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+/* ===================================
+   PLAYLIST PAGE STYLES
+==================================== */
+.playlist-header {
+  margin-bottom: 32px;
+}
+
+.playlist-info {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.playlist-cover {
+  width: 232px;
+  height: 232px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.playlist-details h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.playlist-details p {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.playlist-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.play-all-btn,
+.shuffle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 500px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.play-all-btn {
+  background-color: #1db954;
+  color: white;
+}
+
+.shuffle-btn {
+  background-color: transparent;
+  border: 1px solid #727272;
+  color: white;
+}
+
+.play-all-btn:hover {
+  transform: scale(1.04);
+  background-color: #1ed760;
+}
+
+.shuffle-btn:hover {
+  border-color: white;
+  transform: scale(1.04);
+}
+
+.tracks-header {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 100px;
+  padding: 16px;
+  border-bottom: 1px solid #282828;
+  color: #b3b3b3;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.tracks-list {
+  margin-top: 16px;
+}
+
+/* ===================================
+   HELP & DOCUMENTATION PAGE STYLES
+==================================== */
+.help-header {
+  margin-bottom: 32px;
+}
+
+.help-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.search-help {
+  display: flex;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.search-help input {
+  flex-grow: 1;
+  background-color: #242424;
+  border: none;
+  height: 48px;
+  border-radius: 500px;
+  padding: 0 24px;
+  color: white;
+  font-size: 16px;
+}
+
+.search-help button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #1db954;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 0.3s ease;
+}
+
+.search-help button:hover {
+  transform: scale(1.05);
+  background-color: #1ed760;
+}
+
+.help-categories {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.category-card {
+  background-color: #181818;
+  padding: 24px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  background-color: #282828;
+}
+
+.category-card i {
+  font-size: 32px;
+  color: #1db954;
+  margin-bottom: 16px;
+}
+
+.category-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.category-card p {
+  font-size: 14px;
+  color: #b3b3b3;
+  line-height: 1.5;
+}
+
+.faq-section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+/* ===================================
+   CUSTOM SCROLLBAR (ALL PAGES)
+==================================== */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ===================================
+   RESPONSIVE STYLES (ALL PAGES)
+==================================== */
+@media (max-width: 1200px) {
+  .playlist-cards,
+  .artist-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .left-section .search-container {
+    width: 300px;
+  }
+}
+
+@media (max-width: 992px) {
+  .playlist-cards,
+  .artist-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .left-section .search-container {
+    width: 240px;
+  }
+
+  .right-section {
+    gap: 16px;
+  }
+
+  .sidebar {
+    width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .playlist-cards,
+  .artist-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .left-section .search-container {
+    width: 180px;
+  }
+
+  .right-section .signup-link,
+  .right-section .divider-vertical,
+  .nav-links a:not(:first-child) {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .playlist-cards,
+  .artist-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .topnav {
+    padding: 0 8px;
+  }
+
+  .left-section .search-container {
+    width: 100%;
+    max-width: 150px;
+  }
+
+  .right-section {
+    gap: 8px;
+  }
+
+  .right-section .nav-links {
+    display: none;
+  }
+
+  .sidebar {
+    width: 100%;
+    position: fixed;
+    z-index: 900;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .sidebar.show {
+    transform: translateX(0);
+  }
+}
